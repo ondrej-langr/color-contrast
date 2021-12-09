@@ -1,6 +1,6 @@
 import { VFC } from 'react';
 import { Route, Routes } from 'react-router';
-import FrontPage from './pages';
+import FrontPage from './pages/index';
 
 const Router: VFC = () => {
   return (

@@ -2,7 +2,7 @@ import { VFC } from 'react';
 
 export const SiteLayoutFooter: VFC = () => (
   <footer>
-    <div className="container mx-auto">
+    <div className="container mx-auto flex-none py-5 text-dynamic-color font-bold">
       <a href="https://github.com/ondrej-langr/color-contrast/issues/new">
         Report bugs
       </a>

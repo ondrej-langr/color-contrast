@@ -1,4 +1,6 @@
 module.exports = {
+  mode: 'jit',
+  purge: ['./src/**/*.html', './src/**/*.tsx', './src/**/*.ts'],
   theme: {
     fontFamily: {
       sans: ['"Quicksand"', 'sans-serif'],

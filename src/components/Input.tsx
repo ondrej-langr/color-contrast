@@ -8,12 +8,28 @@ import {
 } from 'react';
 
 const Input: VFC<
-  { name: string; prefixIcon?: ReactElement } & HTMLAttributes<HTMLDivElement> &
+  {
+    name: string;
+    prefixIcon?: ReactElement;
+    inputClassName?: string;
+  } & HTMLAttributes<HTMLDivElement> &
     Pick<
       InputHTMLAttributes<HTMLInputElement>,
-      'onChange' | 'onInput' | 'value'
+      'onChange' | 'onInput' | 'value' | 'onFocus' | 'onBlur'
     >
-> = ({ name, prefixIcon, className, onChange, onInput, value, ...rest }) => {
+> = ({
+  name,
+  prefixIcon,
+  className,
+  onChange,
+  onInput,
+  onFocus,
+  onBlur,
+  value,
+  inputClassName,
+  id,
+  ...rest
+}) => {
   return (
     <div className={clsx('relative', className)} {...rest}>
       {prefixIcon &&
@@ -26,14 +42,18 @@ const Input: VFC<
         })}{' '}
       <input
         className={clsx(
-          'py-2 text-5xl font-bold focus:outline-none bg-transparent px-0 w-full',
-          prefixIcon ? 'pl-14' : ''
+          'py-2 text-7xl font-bold focus:outline-none bg-transparent px-0 w-full',
+          prefixIcon ? 'pl-14' : '',
+          inputClassName
         )}
         value={value}
         name={name}
         prefix={'#'}
         onChange={onChange}
         onInput={onInput}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        id={id}
       />
     </div>
   );

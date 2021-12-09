@@ -1,4 +1,6 @@
 import { createContext, FC, useEffect, useReducer } from 'react';
+import ColorContrastChecker from 'color-contrast-checker';
+const colorContrastChecker = new ColorContrastChecker();
 
 export type GradeValue = {
   value: number;
@@ -16,6 +18,10 @@ export interface IGlobalContext {
   grades: Grades;
   textValue: string;
   backgroundValue: string;
+
+  inputTextValue: string;
+  inputBackgroundValue: string;
+
   updateValues: UpdateValuesCallback;
 }
 
@@ -39,6 +45,10 @@ export const globalContextDefaultValue: IGlobalContext = {
   },
   textValue: '#000',
   backgroundValue: '#fff',
+
+  inputTextValue: '#000',
+  inputBackgroundValue: '#fff',
+
   updateValues: () => {},
 };
 
@@ -65,7 +75,29 @@ export const GlobalContextProvider: FC = ({ children }) => {
   const updateValues: UpdateValuesCallback = (payload) => dispatch(payload);
 
   useEffect(() => {
-    console.log();
+    const { backgroundValue, textValue } = state;
+
+    const [
+      { WCAG_AA: aaNormal, WCAG_AAA: aaaNormal },
+      { WCAG_AA: aaLarge, WCAG_AAA: aaaLarge },
+    ] = colorContrastChecker.checkPairs([
+      // normal font size
+      { colorA: backgroundValue, colorB: textValue, fontSize: 16 },
+      // Large font size
+      { colorA: backgroundValue, colorB: textValue, fontSize: 20 },
+    ]);
+
+    updateValues([
+      {
+        name: 'grades',
+        value: {
+          aaLarge: { value: 0, passed: aaLarge },
+          aaNormal: { value: 0, passed: aaNormal },
+          aaaLarge: { value: 0, passed: aaaLarge },
+          aaaNormal: { value: 0, passed: aaaNormal },
+        },
+      },
+    ]);
   }, [state.backgroundValue, state.textValue]);
 
   return (

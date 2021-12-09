@@ -9,10 +9,10 @@ export const SiteLayout: FC = ({ children }) => {
   return (
     <div
       style={{ backgroundColor, '--global-text': textValue } as CSSProperties}
-      className="min-h-screen"
+      className="min-h-screen flex flex-col "
     >
       <SiteLayoutHeader />
-      <main className="py-8">{children}</main>
+      <main className="py-8 flex-auto">{children}</main>
       <SiteLayoutFooter />
     </div>
   );
