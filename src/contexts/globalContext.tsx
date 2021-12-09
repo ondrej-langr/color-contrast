@@ -1,4 +1,5 @@
 import { createContext, FC, useEffect, useReducer } from 'react';
+// @ts-ignore
 import ColorContrastChecker from 'color-contrast-checker';
 const colorContrastChecker = new ColorContrastChecker();
 
